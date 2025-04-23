@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Neusa";
+  src: url("/fonts/Neusa-Font.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "Neusa", sans-serif;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+}
