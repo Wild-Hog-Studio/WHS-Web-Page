@@ -8,7 +8,7 @@ const MenuListWeb = () => {
       <a href="#home">Home</a>
       <a href="#team">Team</a>
       <a href="#story">Story</a>
-      <a href="https://wildhogstudio.com/deck" target="_blank">
+      <a href="https://kodem.wildhogstudio.com/" target="_blank">
         TCG
       </a>
     </nav>
@@ -21,7 +21,7 @@ const MenuListMobile = () => {
       <a href="#home">Home</a>
       <a href="#team">Team</a>
       <a href="#story">Story</a>
-      <a href="https://wildhogstudio.com/deck" target="_blank">
+      <a href="https://kodem.wildhogstudio.com" target="_blank">
         TCG
       </a>
     </div>
