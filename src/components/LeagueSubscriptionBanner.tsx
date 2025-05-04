@@ -26,12 +26,12 @@ const LeagueSubscriptionBanner: FC<LeagueSubscriptionBannerProps> = ({
         <div className="text-white text-xl font-bold">
           {bannerConfig.subTitle}
         </div>
-        <button
-          className="bg-gray-300 rounded-3xl text-black font-bold text-2xl py-0 px-10 cursor-pointer hover:opacity-70"
-          onClick={bannerConfig.onBtnPress}
-        >
-          {bannerConfig.btnTitle}
-        </button>
+<button
+  className="bg-gray-300 rounded-3xl text-black font-bold text-2xl h-12 px-10 flex items-center justify-center cursor-pointer hover:opacity-70"
+  onClick={bannerConfig.onBtnPress}
+>
+  {bannerConfig.btnTitle}
+</button>
       </div>
     </div>
   );
