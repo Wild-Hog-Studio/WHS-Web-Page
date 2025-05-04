@@ -1,9 +1,11 @@
 ---
 import Header from "../components/Header"
 import Hero from "../components/Hero"
+import LeagueSubscriptionBanner from "../components/LeagueSubscriptionBanner";
 import PrizeItem from "../components/PrizeItem"
 import Rules from "../components/Rules";
 import "../styles/global.css";
+import Main from "./Main";
 ---
 
 <html lang="en">
@@ -15,11 +17,6 @@ import "../styles/global.css";
 		<title>Wild Hog Studio</title>
 	</head>
 	<body >
-		<Header client:load/>
-		<Hero client:load/>
-		<PrizeItem client:load position={0} />
-		<PrizeItem client:load position={1} />
-		<PrizeItem client:load position={2} />
-		<Rules client:load />
+		<Main client:load/>
 	</body>
 </html>
