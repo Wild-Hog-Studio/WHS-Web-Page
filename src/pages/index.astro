@@ -1,6 +1,8 @@
 ---
 import Header from "../components/Header"
 import Hero from "../components/Hero"
+import PrizeItem from "../components/PrizeItem"
+import Rules from "../components/Rules";
 import "../styles/global.css";
 ---
 
@@ -15,5 +17,9 @@ import "../styles/global.css";
 	<body >
 		<Header client:load/>
 		<Hero client:load/>
+		<PrizeItem client:load position={0} />
+		<PrizeItem client:load position={1} />
+		<PrizeItem client:load position={2} />
+		<Rules client:load />
 	</body>
 </html>
