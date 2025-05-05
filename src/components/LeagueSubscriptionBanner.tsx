@@ -14,9 +14,9 @@ const LeagueSubscriptionBanner: FC<LeagueSubscriptionBannerProps> = ({
 }) => {
   return (
     <div
-      className="flex w-full h-[30vh] justify-center items-center px-8"
+      className="flex w-full h-[20vh] justify-center items-center px-8"
       style={{
-        backgroundImage: "url('./assets/banner-bg.jpg')",
+        backgroundImage: "url('/assets/banner-bg.jpg')",
       }}
     >
       <div className="flex flex-col justify-center items-center gap-2">
@@ -26,12 +26,12 @@ const LeagueSubscriptionBanner: FC<LeagueSubscriptionBannerProps> = ({
         <div className="text-white text-xl font-bold">
           {bannerConfig.subTitle}
         </div>
-<button
-  className="bg-gray-300 rounded-3xl text-black font-bold text-2xl h-12 px-10 flex items-center justify-center cursor-pointer hover:opacity-70"
-  onClick={bannerConfig.onBtnPress}
->
-  {bannerConfig.btnTitle}
-</button>
+        <button
+          className="bg-gray-300 rounded-3xl text-black font-bold text-2xl h-12 px-10 flex items-center justify-center cursor-pointer hover:opacity-70"
+          onClick={bannerConfig.onBtnPress}
+        >
+          {bannerConfig.btnTitle}
+        </button>
       </div>
     </div>
   );

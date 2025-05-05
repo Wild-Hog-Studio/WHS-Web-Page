@@ -9,7 +9,7 @@ const Hero = () => {
       }}
     >
       <img
-        src="./assets/Eslogan.png"
+        src="/assets/Eslogan.png"
         className="w-[90%]  max-w-md sm:max-w-lg  md:max-w-xl  object-contain"
         alt="slogan"
       />
