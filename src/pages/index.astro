@@ -1,11 +1,6 @@
 ---
-import Header from "../components/Header"
-import Hero from "../components/Hero"
-import LeagueSubscriptionBanner from "../components/LeagueSubscriptionBanner";
-import PrizeItem from "../components/PrizeItem"
-import Rules from "../components/Rules";
 import "../styles/global.css";
-import Main from "./Main";
+import App from "../App";
 ---
 
 <html lang="en">
@@ -17,6 +12,6 @@ import Main from "./Main";
 		<title>Wild Hog Studio</title>
 	</head>
 	<body >
-		<Main client:load/>
+		<App client:only="react" />
 	</body>
 </html>
