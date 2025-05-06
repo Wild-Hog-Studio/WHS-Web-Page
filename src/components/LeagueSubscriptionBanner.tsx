@@ -14,20 +14,20 @@ const LeagueSubscriptionBanner: FC<LeagueSubscriptionBannerProps> = ({
 }) => {
   return (
     <div
-      className="flex w-full h-[20vh] justify-center items-center px-8"
+      className="flex w-full h-[30vh] justify-center items-center px-8"
       style={{
         backgroundImage: "url('/assets/banner-bg.jpg')",
       }}
     >
       <div className="flex flex-col justify-center items-center gap-2">
-        <div className="text-white text-4xl font-bold">
+        <div className="text-white text-2xl md:text-5xl font-bold">
           {bannerConfig.mainTitle}
         </div>
-        <div className="text-white text-xl font-bold">
+        <div className="text-white text-xl md:text-3xl font-bold">
           {bannerConfig.subTitle}
         </div>
         <button
-          className="bg-gray-300 rounded-3xl text-black font-bold text-2xl h-12 px-10 flex items-center justify-center cursor-pointer hover:opacity-70"
+          className="bg-gray-300 rounded-3xl text-black font-bold md:text-2xl h-12 px-10 flex items-center justify-center cursor-pointer hover:opacity-70"
           onClick={bannerConfig.onBtnPress}
         >
           {bannerConfig.btnTitle}
