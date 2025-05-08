@@ -75,15 +75,14 @@ const rules = [
     const [show, setShow] = useState(false);
   
     return (
-      <section className="w-full px-4 py-12 text-white text-center">
-        <h2 className="text-3xl font-bold mb-6">REGLAS DEL TORNEO</h2>
+      <section className=" w-full px-4 py-12 text-white text-center">
   
-        <button
-          onClick={() => setShow(!show)}
-          className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-6 rounded transition mb-6"
-        >
-          {show ? "Ocultar reglas" : "Mostrar reglas"}
-        </button>
+  <button
+  onClick={() => setShow(!show)}
+  className="bg-yellow-400 hover:bg-yellow-500 text-black font-extrabold text-4xl px-20 py-6 rounded-full shadow-xl transition duration-300 ease-in-out transform hover:scale-105"
+>
+  {show ? "Ocultar reglas" : "Mostrar reglas"}
+</button>
   
         <div
           className={`transition-all duration-500 ease-in-out overflow-hidden ${
