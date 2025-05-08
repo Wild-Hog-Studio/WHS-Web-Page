@@ -2,61 +2,76 @@ import React, { useEffect, useState } from "react";
 
 const TOURNAMENT_ID = "15965818";
 
-interface Round1Match {
-  p1: string;
-  p2: string;
-  score: string;
+interface Participant {
+  id: number;
+  name: string;
+}
+
+interface Match {
+  player1_id: number;
+  player2_id: number;
+  scores_csv: string;
+  round: number;
 }
 
 const ChallongeTest = () => {
-  const [round1Matches, setRound1Matches] = useState<Round1Match[]>([]);
+  const [participants, setParticipants] = useState<Record<number, string>>({});
+  const [rounds, setRounds] = useState<Record<number, Match[]>>({});
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const loadMatches = async () => {
+    const loadData = async () => {
       try {
-        // fetch participants from proxy
-        const pRes = await fetch(`/api/challonge/proxy?path=tournaments/${TOURNAMENT_ID}/participants.json`);
-        const pData = await pRes.json();
+        const [pRes, mRes] = await Promise.all([
+            fetch(`/api/challonge?path=tournaments/15965818/participants.json`),
+            fetch(`/api/challonge?path=tournaments/15965818/matches.json`)
+        ]);
 
-        const participants = pData.map((p: any) => ({
-          id: p.participant.id,
-          name: p.participant.name?.startsWith("Participant") ? "???" : p.participant.name
-        }));
+        const participantsJson = await pRes.json();
+        const matchesJson = await mRes.json();
 
-        const idToName = Object.fromEntries(participants.map((p: { id: number, name: string }) => [p.id, p.name]));
+        const pMap: Record<number, string> = {};
+        participantsJson.forEach((p: any) => {
+          pMap[p.participant.id] = p.participant.name;
+        });
+        setParticipants(pMap);
 
-        // fetch matches from proxy
-        const mRes = await fetch(`/api/challonge/proxy?path=tournaments/${TOURNAMENT_ID}/matches.json`);
-        const mData = await mRes.json();
-
-        const round1 = mData
-          .filter((m: any) => m.match.round === 1)
-          .map((m: any) => ({
-            p1: idToName[m.match.player1_id] || "???",
-            p2: idToName[m.match.player2_id] || "???",
-            score: m.match.scores_csv || "Sin resultado"
-          }));
-
-        setRound1Matches(round1);
+        const rMap: Record<number, Match[]> = {};
+        matchesJson.forEach((m: any) => {
+          const round = m.match.round;
+          if (!rMap[round]) rMap[round] = [];
+          rMap[round].push(m.match);
+        });
+        setRounds(rMap);
       } catch (err) {
-        console.error("Error al cargar los datos del torneo:", err);
+        setError("Error al cargar datos del torneo");
+        console.error(err);
       }
     };
 
-    loadMatches();
+    loadData();
   }, []);
 
   return (
     <div className="text-white p-4">
-      <h2 className="text-2xl font-bold mb-4">Matches Ronda 1</h2>
-      <ul className="space-y-2">
-        {round1Matches.map((m, i) => (
-          <li key={i} className="bg-gray-800 p-3 rounded-md shadow-md">
-            <span className="font-semibold">{m.p1}</span> vs <span className="font-semibold">{m.p2}</span> →{" "}
-            <span className="font-mono text-cyan-300">{m.score}</span>
-          </li>
-        ))}
-      </ul>
+      <h2 className="text-2xl font-bold mb-4">Resultados del Torneo</h2>
+      {error && <p className="text-red-400">{error}</p>}
+      {!error &&
+        Object.keys(rounds)
+          .sort((a, b) => Number(a) - Number(b))
+          .map((round) => (
+            <div key={round} className="mb-4">
+              <h3 className="text-lg font-semibold mb-2">Ronda {round}</h3>
+              <ul className="list-disc ml-6">
+                {rounds[Number(round)].map((match, i) => (
+                  <li key={i}>
+                    {participants[match.player1_id] || "???"} vs{" "}
+                    {participants[match.player2_id] || "???"} — {match.scores_csv || "Sin resultado"}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
     </div>
   );
 };
