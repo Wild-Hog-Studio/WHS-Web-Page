@@ -1,3 +1,6 @@
+import type { FC } from "react";
+import useGetMatchData from "../hooks/useGetMatchData";
+import type { Rounds } from "../types/Rounds";
 import MatchCard from "./MatchCard";
 
 const dummyMatches = [
@@ -75,14 +78,22 @@ const dummyMatches = [
   },
 ];
 
-const MatchesSection = () => {
+interface MatchesSectionProps {
+  round: string
+}
+
+const MatchesSection:FC<MatchesSectionProps> = ({ round }) => {
+  const { matchesList} = useGetMatchData()
+
+  const getMatchesPerRound = (roundNumber: string) => matchesList.filter((match: Rounds) => match.round == roundNumber)
+
   return (
-    <section className="flex flex-col items-center gap-10 mt-32 pb-60">
-      <h2 className="text-white text-6xl font-extrabold">Ronda 1</h2>
+    <section className="flex flex-col items-center gap0 mt-32 pb-60">
+      <h2 className="text-white text-6xl font-extrabold">Ronda {round}</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-15">
-        {dummyMatches.map((match, index) => (
-          <MatchCard key={index} {...match} />
+        {getMatchesPerRound(round).map((match, index) => (
+          <MatchCard key={index} round={match} />
         ))}
       </div>
     </section>
