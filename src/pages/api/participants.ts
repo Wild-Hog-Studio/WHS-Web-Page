@@ -3,7 +3,7 @@ export const prerender = false;
 export const GET = async ({ request }: { request: Request }) => {
   const url = new URL(request.url);
   const tournamentId = url.searchParams.get("tournamentId");
-  const apiKey = import.meta.env.CHALLONGE_API_KEY;
+  const apiKey = import.meta.env.PUBLIC_CHALLONGE_API_KEY;
 
   const apiUrl = `https://api.challonge.com/v1/tournaments/${tournamentId}/participants.json?api_key=${apiKey}`;
   console.log(apiUrl);
