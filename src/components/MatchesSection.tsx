@@ -1,98 +1,57 @@
+import { useState, useEffect } from "react";
 import type { FC } from "react";
 import useGetMatchData from "../hooks/useGetMatchData";
 import type { Rounds } from "../types/Rounds";
 import MatchCard from "./MatchCard";
 
-const dummyMatches = [
-  {
-    playerA: "JUGADORA",
-    playerB: "JUGADORB",
-    scoreA: 0,
-    scoreB: 10,
-    date: "05 MAY 2025",
-    energiesA: ["agua", "fuego"],
-    energiesB: ["fuego", "fuego"],
-  },
-  {
-    playerA: "ERIKA",
-    playerB: "PABLO",
-    scoreA: 5,
-    scoreB: 7,
-    date: "05 MAY 2025",
-    energiesA: ["tierra", "fuego"],
-    energiesB: ["luz", "aire"],
-  },
-  {
-    playerA: "JAZ",
-    playerB: "RAMIRO",
-    scoreA: 10,
-    scoreB: 4,
-    date: "05 MAY 2025",
-    energiesA: ["hoja", "veneno"],
-    energiesB: ["sombra", "fuego"],
-  },
-  {
-    playerA: "LUIS",
-    playerB: "FER",
-    scoreA: 8,
-    scoreB: 10,
-    date: "05 MAY 2025",
-    energiesA: ["agua", "hoja"],
-    energiesB: ["fuego", "fuego"],
-  },
-  {
-    playerA: "NADIA",
-    playerB: "OMAR",
-    scoreA: 6,
-    scoreB: 6,
-    date: "05 MAY 2025",
-    energiesA: ["sombra", "agua"],
-    energiesB: ["veneno", "fuego"],
-  },
-  {
-    playerA: "ALAN",
-    playerB: "VAL",
-    scoreA: 9,
-    scoreB: 3,
-    date: "05 MAY 2025",
-    energiesA: ["hoja", "luz"],
-    energiesB: ["fuego", "tierra"],
-  },
-  {
-    playerA: "LORE",
-    playerB: "IVÁN",
-    scoreA: 4,
-    scoreB: 4,
-    date: "05 MAY 2025",
-    energiesA: ["aire", "sombra"],
-    energiesB: ["agua", "veneno"],
-  },
-  {
-    playerA: "MIA",
-    playerB: "ROD",
-    scoreA: 7,
-    scoreB: 10,
-    date: "05 MAY 2025",
-    energiesA: ["fuego", "fuego"],
-    energiesB: ["luz", "hoja"],
-  },
-];
+const MatchesSection: FC = () => {
+  const { matchesList } = useGetMatchData();
 
-interface MatchesSectionProps {
-  round: string
-}
+  const groupedByRound = matchesList.reduce((acc: Record<string, Rounds[]>, match: Rounds) => {
+    const roundKey = match.round.toString();
+    if (!acc[roundKey]) acc[roundKey] = [];
+    acc[roundKey].push(match);
+    return acc;
+  }, {});
 
-const MatchesSection:FC<MatchesSectionProps> = ({ round }) => {
-  const { matchesList} = useGetMatchData()
+  const sortedRounds = Object.keys(groupedByRound).sort((a, b) => Number(a) - Number(b)); // menor → mayor
 
-  const getMatchesPerRound = (roundNumber: string) => matchesList.filter((match: Rounds) => match.round == roundNumber)
+  const [selectedRound, setSelectedRound] = useState<string>("");
+
+  // Mostramos por default la ronda más alta (última)
+  useEffect(() => {
+    if (sortedRounds.length > 0) {
+      setSelectedRound(sortedRounds[sortedRounds.length - 1]); // última ronda
+    }
+  }, [matchesList]);
+
+  if (!selectedRound) return null;
 
   return (
-    <section className="flex flex-col items-center gap0 mt-32 pb-60">
-      <h2 className="text-white text-6xl font-extrabold">Ronda {round}</h2>
+    <section className="flex flex-col items-center mt-32 pb-60 text-white">
+      {/* Pestañas */}
+      <div className="flex gap-4 mb-8 flex-wrap justify-center">
+        {sortedRounds.map((round) => (
+          <button
+            key={round}
+            onClick={() => setSelectedRound(round)}
+            className={`px-6 py-3 text-lg rounded-full font-bold transition ${
+              selectedRound === round
+                ? "bg-yellow-400 text-black"
+                : "bg-zinc-800 hover:bg-zinc-700"
+            }`}
+          >
+            Ronda {round}
+          </button>
+        ))}
+      </div>
 
+      {/* Título */}
+      <h2 className="text-4xl font-extrabold mb-8">Ronda {selectedRound}</h2>
+
+      {/* Matches */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-15">
-        {getMatchesPerRound(round).map((match, index) => (
+        {groupedByRound[selectedRound].map((match, index) => (
           <MatchCard key={index} round={match} />
         ))}
       </div>

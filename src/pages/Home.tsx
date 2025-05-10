@@ -13,9 +13,8 @@ const Home = () => {
       <Hero />
       <PrizeItem />
       <Rules />
-      <MatchesSection round={'1'}/>
-      <MatchesSection round={'2'}/>
-      <MatchesSection round={'3'}/>
+      <MatchesSection/>
+
     </Layout>
   );
 };
