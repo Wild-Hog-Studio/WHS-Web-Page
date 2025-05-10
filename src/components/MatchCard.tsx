@@ -4,16 +4,6 @@ import type { Rounds } from "../types/Rounds";
 import useGetMatchData from "../hooks/useGetMatchData";
 import type { Participant } from "../types/Participants";
 
-/* interface MatchCardProps {
-  playerA: string;
-  playerB: string;
-  scoreA: number;
-  scoreB: number;
-  date: string;
-  energiesA: string[];
-  energiesB: string[];
-} */
-
 interface MatchCardProps {
   round: Rounds;
 }
@@ -33,7 +23,7 @@ const MatchCard: FC<MatchCardProps> = ({ round }) => {
   const { participantsList } = useGetMatchData();
 
   const mapUserName = (id: string) => {
-    const participant: Participant = participantsList.filter((elem: Participant) => elem.id == id)[0];
+    const participant: Participant = participantsList.filter((elem) => elem.id == id)[0];
     if (participant) return participant.username;
     return 'no existe';
   };
@@ -63,10 +53,10 @@ const MatchCard: FC<MatchCardProps> = ({ round }) => {
       </div> */}
 
       {/* Resultado con guion entre scores */}
-<div className="grid grid-cols-2 w-full text-3xl font-extrabold">
-  <div className="w-full flex justify-center">{score1}</div>
-  <div className="w-full flex justify-center">{score2}</div>
-</div>
+      <div className="grid grid-cols-2 w-full text-3xl font-extrabold">
+        <div className="w-full flex justify-center">{score1}</div>
+        <div className="w-full flex justify-center">{score2}</div>
+      </div>
 
       {/* Fecha */}
 {/*       <div className="text-base text-gray-400">{date}</div> */}
