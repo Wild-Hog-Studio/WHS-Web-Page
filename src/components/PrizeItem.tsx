@@ -12,19 +12,17 @@ interface PrizeItemProps {
 const PrizeItem: FC<PrizeItemProps> = ({ position }) => {
   if (position === undefined) {
     return (
-        <section className="flex flex-col items-center mt-25 mb-40 gap-10 relative z-0 overflow-visible">
+      <section className="flex flex-col items-center mt-10 mb-8  relative z-0 overflow-visible">
+        <h2 className="text-white text-[5rem] font-extrabold tracking-wide z-10 mb-5">
+          PREMIOS
+        </h2>
 
-          <h2 className="text-white text-8xl font-extrabold tracking-wide z-10 mb-24">
-  PREMIOS
-</h2>
-      
-
-<div className="flex justify-center items-end gap-16 scale-[2] relative z-10">
-            <PrizeItem position={1} />
-            <PrizeItem position={0} />
-            <PrizeItem position={2} />
-          </div>
-        </section>
+        <div className="flex justify-center items-end gap-32 relative z-10">
+          <PrizeItem position={1} />
+          <PrizeItem position={0} />
+          <PrizeItem position={2} />
+        </div>
+      </section>
     );
   }
 
@@ -33,16 +31,27 @@ const PrizeItem: FC<PrizeItemProps> = ({ position }) => {
   const prize = prizeArray[position];
   const textColor = bgColorArray[position];
 
+  // ✅ Tamaños doblados
+  const imgSize = position === 0 ? "w-54 h-54" : "w-48 h-48";
+  const prizeTextSize = position === 0 ? "text-[6rem]" : "text-[4.5rem]";
+  const placeTextSize = position === 0 ? "text-5xl" : "text-4xl";
+  const width = position === 0 ? "w-[28rem]" : "w-[20rem]";
+  const px = position === 0 ? "px-16" : "px-12";
+  const py = position === 0 ? "py-15" : "py-12";
+  const trophyOffset = "-mb-26";
+
   return (
     <div className="flex flex-col items-center relative">
       <img
         src={imgUri}
         alt="Trophy"
-        className="w-32 h-32 -mb-15 z-10 relative"
+        className={`${imgSize} ${trophyOffset} z-10 relative`}
       />
-<div className="bg-neutral-800 rounded-[50px] px-8 py-10 text-center w-64 shadow-lg z-0 translate-y-5">
-        <div className="text-white text-2xl font-bold mb-2">{place}</div>
-        <div className={`${textColor} text-5xl font-black`}>{prize}</div>
+      <div
+        className={`bg-neutral-800 rounded-[100px] ${px} ${py} text-center ${width} shadow-lg z-0 translate-y-10`}
+      >
+        <div className={`text-white ${placeTextSize} font-bold mb-4`}>{place}</div>
+        <div className={`${textColor} ${prizeTextSize} font-black`}>{prize}</div>
       </div>
     </div>
   );
