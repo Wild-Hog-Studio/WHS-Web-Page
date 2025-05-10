@@ -1,36 +1,37 @@
-export const prerender = false;
+// pages/api/rounds.ts
 
-export const GET = async ({ request }: { request: Request }) => {
-  const url = new URL(request.url);
-  const tournamentId = url.searchParams.get("tournamentId");
-  const apiKey = import.meta.env.PUBLIC_CHALLONGE_API_KEY;
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const tournamentId = searchParams.get("tournamentId");
+  const API_KEY = "u1Q3PNnBMbsCANGcjvap76SdLv1Wk1VsJnOWdOKp";
 
-  const apiUrl = `https://api.challonge.com/v1/tournaments/${tournamentId}/matches.json?api_key=${apiKey}`;
-
-  try {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-
-    const matches = data.map(
-      (element: { match: { player1_id: { toString: () => any; }; player2_id: { toString: () => any; }; winner_id: { toString: () => any; }; round: { toString: () => any; }; scores_csv: { toString: () => any; }; }; }) => {
-        return {
-        player1ID: element.match.player1_id.toString(),
-        player2ID: element.match.player2_id.toString(),
-        winnerID: element.match.winner_id.toString(),
-        round: element.match.round.toString(),
-        score:element.match.scores_csv.toString()
-        };
-      }
-    );
-
-    return new Response(JSON.stringify(matches), {
-      status: 200,
-      headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
+  if (!tournamentId) {
+    return new Response(JSON.stringify({ error: "Missing tournamentId" }), {
+      status: 400,
     });
-  } catch (e) {
-    return new Response(JSON.stringify({ error: e }), { status: 500 });
   }
-};
+
+  const response = await fetch(
+    `https://api.challonge.com/v1/tournaments/${tournamentId}/matches.json?api_key=${API_KEY}`
+  );
+
+  const rawMatches = await response.json();
+
+  // Flatten the match data here
+  const matches = rawMatches.map((entry: any) => {
+    const m = entry.match;
+    return {
+      player1ID: m.player1_id?.toString() ?? "",
+      player2ID: m.player2_id?.toString() ?? "",
+      winnerID: m.winner_id?.toString() ?? "",
+      score: m.scores_csv ?? "",
+      state: m.state,
+      completedAt: m.completed_at ?? "",
+      round: m.round
+    };
+  });
+
+  return new Response(JSON.stringify(matches), {
+    headers: { "Content-Type": "application/json" },
+  });
+}

@@ -4,16 +4,6 @@ import type { Rounds } from "../types/Rounds";
 import useGetMatchData from "../hooks/useGetMatchData";
 import type { Participant } from "../types/Participants";
 
-/* interface MatchCardProps {
-  playerA: string;
-  playerB: string;
-  scoreA: number;
-  scoreB: number;
-  date: string;
-  energiesA: string[];
-  energiesB: string[];
-} */
-
 interface MatchCardProps {
   round: Rounds;
 }
@@ -33,9 +23,9 @@ const MatchCard: FC<MatchCardProps> = ({ round }) => {
   const { participantsList } = useGetMatchData();
 
   const mapUserName = (id: string) => {
-    const participant: Participant = participantsList.filter((elem: Participant) => elem.id == id)[0];
+    const participant: Participant = participantsList.filter((elem) => elem.id == id)[0];
     if (participant) return participant.username;
-    return 'no existe';
+    return "no existe";
   };
 
   const player1Name = mapUserName(round.player1ID);
@@ -44,7 +34,7 @@ const MatchCard: FC<MatchCardProps> = ({ round }) => {
 
   return (
     <div className="bg-zinc-900 rounded-3xl px-6 py-4 w-80 text-white text-base flex flex-col items-center shadow-lg gap-2">
-
+      
       {/* Nombres de jugadores centrados y más juntos */}
       <div className="grid grid-cols-2 w-full font-bold text-xl text-center">
         <span className="text-cyan-300">{player1Name}</span>
@@ -52,7 +42,8 @@ const MatchCard: FC<MatchCardProps> = ({ round }) => {
       </div>
 
       {/* Energías */}
-{/*      <div className="flex gap-2 items-center">
+      {/* 
+      <div className="flex gap-2 items-center">
         {energiesA.map((e, i) => (
           <div key={`a-${i}`} className={`w-5 h-5 rounded-full ${energyColors[e]}`} />
         ))}
@@ -60,16 +51,21 @@ const MatchCard: FC<MatchCardProps> = ({ round }) => {
         {energiesB.map((e, i) => (
           <div key={`b-${i}`} className={`w-5 h-5 rounded-full ${energyColors[e]}`} />
         ))}
-      </div> */}
+      </div> 
+      */}
 
-      {/* Resultado con guion entre scores */}
-<div className="grid grid-cols-2 w-full text-3xl font-extrabold">
-  <div className="w-full flex justify-center">{score1}</div>
-  <div className="w-full flex justify-center">{score2}</div>
-</div>
+      {/* Resultado o estado */}
+      {score1 && score2 ? (
+        <div className="grid grid-cols-2 w-full text-3xl font-extrabold">
+          <div className="w-full flex justify-center">{score1}</div>
+          <div className="w-full flex justify-center">{score2}</div>
+        </div>
+      ) : (
+        <div className="text-sm text-gray-400 mt-1 font-semibold">Partida pendiente</div>
+      )}
 
       {/* Fecha */}
-{/*       <div className="text-base text-gray-400">{date}</div> */}
+      {/* <div className="text-base text-gray-400">{date}</div> */}
     </div>
   );
 };

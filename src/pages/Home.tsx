@@ -1,4 +1,3 @@
-import ChallongeTest from "../components/ChallongeTest";
 import Hero from "../components/Hero";
 import Layout from "../components/Layout";
 import MatchesSection from "../components/MatchesSection";
@@ -7,14 +6,14 @@ import Rules from "../components/Rules";
 import useGetMatchData from "../hooks/useGetMatchData";
 
 const Home = () => {
-  useGetMatchData()
+  useGetMatchData(); // Hook que carga participantes y matches
+
   return (
     <Layout>
       <Hero />
       <PrizeItem />
       <Rules />
-      <MatchesSection/>
-
+      <MatchesSection /> {/* Una sola invocación para todas las rondas */}
     </Layout>
   );
 };
