@@ -15,7 +15,7 @@ import type { Participant } from "../types/Participants";
 } */
 
 interface MatchCardProps {
-  round: Rounds
+  round: Rounds;
 }
 
 const energyColors: Record<string, string> = {
@@ -29,28 +29,26 @@ const energyColors: Record<string, string> = {
   veneno: "bg-purple-500",
 };
 
-const MatchCard: FC<MatchCardProps> = ({
-  round
-}) => {
-  const { participantsList } = useGetMatchData()
-  
+const MatchCard: FC<MatchCardProps> = ({ round }) => {
+  const { participantsList } = useGetMatchData();
 
   const mapUserName = (id: string) => {
- 
-    const participant:Participant =  participantsList.filter((elem: Participant) => elem.id == id)[0]
-   
-    if(participant) return participant.username
-    return 'no existe'
-  }
+    const participant: Participant = participantsList.filter((elem: Participant) => elem.id == id)[0];
+    if (participant) return participant.username;
+    return 'no existe';
+  };
 
-  
+  const player1Name = mapUserName(round.player1ID);
+  const player2Name = mapUserName(round.player2ID);
+  const [score1, score2] = round.score ? round.score.split("-") : ["", ""];
 
   return (
     <div className="bg-zinc-900 rounded-3xl px-6 py-4 w-80 text-white text-base flex flex-col items-center shadow-lg gap-2">
+
       {/* Nombres de jugadores centrados y más juntos */}
-      <div className="flex justify-center gap-4 w-full font-bold text-xl">
-        <span className="text-cyan-300">{mapUserName(round.player1ID)}</span>
-        <span className="text-rose-400">{mapUserName(round.player2ID)}</span>
+      <div className="grid grid-cols-2 w-full font-bold text-xl text-center">
+        <span className="text-cyan-300">{player1Name}</span>
+        <span className="text-rose-400">{player2Name}</span>
       </div>
 
       {/* Energías */}
@@ -64,9 +62,11 @@ const MatchCard: FC<MatchCardProps> = ({
         ))}
       </div> */}
 
-      {/* Resultado */}
-      <div className="text-3xl font-extrabold">
-        {round.score}
+      {/* Resultado con guion entre scores */}
+      <div className="grid grid-cols-3 w-full text-3xl font-extrabold text-center">
+        <span>{score1}</span>
+        <span>-</span>
+        <span>{score2}</span>
       </div>
 
       {/* Fecha */}
