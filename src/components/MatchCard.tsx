@@ -63,11 +63,10 @@ const MatchCard: FC<MatchCardProps> = ({ round }) => {
       </div> */}
 
       {/* Resultado con guion entre scores */}
-      <div className="grid grid-cols-3 w-full text-3xl font-extrabold text-center">
-        <span>{score1}</span>
-        <span>-</span>
-        <span>{score2}</span>
-      </div>
+<div className="grid grid-cols-2 w-full text-3xl font-extrabold">
+  <div className="w-full flex justify-center">{score1}</div>
+  <div className="w-full flex justify-center">{score2}</div>
+</div>
 
       {/* Fecha */}
 {/*       <div className="text-base text-gray-400">{date}</div> */}
