@@ -10,7 +10,7 @@ const ChallongeTest = () => {
 
       const res = await fetch(url);
       const text = await res.text();
-      const lines = text.split("\n");
+      const lines = text.split("\n"); 
 
       const parsedNames = lines
         .slice(1) // omitir encabezado
