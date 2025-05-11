@@ -1,4 +1,5 @@
 import ChallongeTest from "../components/ChallongeTest";
+import DummyMatches from "../components/DummyMatches";
 import Hero from "../components/Hero";
 import Layout from "../components/Layout";
 import MatchesSection from "../components/MatchesSection";
@@ -14,8 +15,7 @@ const Home = () => {
       <Hero />
       <PrizeItem />
       <Rules />
-      <MatchesSection /> {/* Una sola invocación para todas las rondas */}
-      <ChallongeTest />
+ <DummyMatches />
     </Layout>
   );
 };
