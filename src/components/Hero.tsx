@@ -47,23 +47,22 @@ export default function Hero() {
         aria-hidden
       />
 
-      {/* Contenido */}
-      <div className="relative h-full flex items-center">
-        <div
-          className="
-            mx-auto w-full max-w-[1440px] 
-            px-4 sm:px-6 lg:px-8
-            flex justify-center
-            lg:pl-[280px]   /* offset solo en escritorio */
-          "
-        >
-          <img
-            src={src}
-            className="w-[80%] sm:w-[70%] max-w-md sm:max-w-lg md:max-w-2xl object-contain"
-            alt={lang === "es" ? "Eslogan en español" : "Slogan in English"}
-          />
-        </div>
-      </div>
+{/* Contenido */}
+<div
+  className="
+    relative h-full flex items-center 
+    justify-center lg:justify-start 
+    mx-auto w-full max-w-[1440px] 
+    px-4 sm:px-6 lg:px-8
+    lg:pl-[280px]
+  "
+>
+  <img
+    src={src}
+    className="w-[80%] sm:w-[70%] max-w-md sm:max-w-lg md:max-w-2xl object-contain"
+    alt={lang === "es" ? "Eslogan en español" : "Slogan in English"}
+  />
+</div>
     </section>
   );
 }
