@@ -10,8 +10,7 @@ const Home = () => {
   return (
     <Layout>
       <Hero />
-      <PrizeItem />
-      <PrizeItem />
+
     </Layout>
   );
 };
