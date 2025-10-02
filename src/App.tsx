@@ -2,8 +2,8 @@ import React from "react";
 import Header from "./components/Header";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Hero from "./components/Hero";
-import Home from "./pages/Home";
-import TCG from "./pages/TCG";
+import Home from "./react-pages/Home";
+import TCG from "./react-pages/TCG";
 const Main = () => {
   return (
     <BrowserRouter>
