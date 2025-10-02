@@ -13,9 +13,7 @@ const Home = () => {
   return (
     <Layout>
       <Hero />
-      <PrizeItem />
-      <Rules />
- <DummyMatches />
+
     </Layout>
   );
 };
