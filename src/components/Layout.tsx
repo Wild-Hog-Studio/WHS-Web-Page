@@ -1,17 +1,11 @@
 import React, { type FC, type ReactNode } from "react";
-import Header from "./Header";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => {
-  return (
-    <>
-      <Header />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 };
 
 export default Layout;
