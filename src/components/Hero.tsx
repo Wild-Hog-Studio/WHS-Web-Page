@@ -1,9 +1,6 @@
 import "../styles/global.css";
 import { useEffect, useMemo, useState } from "react";
 
-// offset solo para escritorio (cuando la bandera ocupa espacio a la izquierda)
-const HERO_LEFT_OFFSET = 280;
-
 function getInitialLang(): "es" | "en" {
   const htmlLang = document?.documentElement?.getAttribute("lang") || "";
   const saved = localStorage.getItem("lang") || "";
@@ -36,33 +33,43 @@ export default function Hero() {
   );
 
   return (
-    <section className="relative w-full h-[35vh] md:h-[70vh] overflow-hidden bg-[#212529]">
-      {/* Capa 1: fondo gris full-bleed */}
+    <section
+      className="
+        relative w-full
+        h-[32vh]           /* MOBILE como antes */
+        md:h-[29.77vh]     /* DESKTOP como el último (−10%) */
+        overflow-hidden bg-[#212529]
+      "
+    >
+      {/* fondo */}
       <div className="absolute inset-0 bg-[#212529]" aria-hidden />
-
-      {/* Capa 2: imagen de fondo */}
       <div
         className="absolute inset-0 bg-center bg-cover bg-no-repeat"
         style={{ backgroundImage: "url('/assets/Background.png')" }}
         aria-hidden
       />
 
-{/* Contenido */}
+      {/* contenido centrado */}
 <div
   className="
-    relative h-full flex items-center 
-    justify-center lg:justify-start 
-    mx-auto w-full max-w-[1440px] 
-    px-4 sm:px-6 lg:px-8
-    lg:pl-[280px]
+    relative h-full
+    grid place-items-center        /* ⬅️ mobile: centra en ambos ejes */
+    md:flex md:items-center md:justify-center
+    mx-auto w-full max-w-[1440px]
+    px-4 sm:px-6 lg:px-8 text-center
   "
 >
-  <img
-    src={src}
-    className="w-[80%] sm:w-[70%] max-w-md sm:max-w-lg md:max-w-2xl object-contain"
-    alt={lang === "es" ? "Eslogan en español" : "Slogan in English"}
-  />
-</div>
+<img
+  src={src}
+  className="
+    block                           /* ⬅️ evita el pequeño desajuste vertical */
+    w-[72%] sm:w-[63%] md:w-[37.8%]
+    max-w-md sm:max-w-lg md:max-w-[22.05rem]
+    object-contain
+  "
+  alt={lang === "es" ? "Eslogan en español" : "Slogan in English"}
+/>
+      </div>
     </section>
   );
 }
