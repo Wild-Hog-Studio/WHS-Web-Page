@@ -96,20 +96,27 @@ const next = () => scrollToIndex((index + 1) % slides.length);
   // [RENDER]
   // ─────────────────────────────────────────────────────────
   return (
-    <section id="services" className="py-12 sm:py-16">
+<section id="services" className="pt-3 pb-12 sm:pt-12 sm:pb-16">
       {/* ─────────────────────────────────────────────────────
           [TÍTULO + INTRO]
           ─────────────────────────────────────────────────── */}
-      <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center uppercase tracking-wider text-white text-3xl sm:text-4xl font-extrabold mb-2">
-          {t("sections.services")} {/* SERVICIOS */}
-        </h2>
-        <p className="text-center text-white/75 mb-8">
-          {lang === "es"
-            ? "Creamos experiencias digitales a medida: videojuegos, sitios web y aplicaciones."
-            : "We craft custom digital experiences: games, websites, and apps."}
-        </p>
-      </div>
+<div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
+  <h2 className="text-center uppercase tracking-wider text-white text-3xl sm:text-4xl font-extrabold mb-1 sm:mb-2">
+    {(() => {
+      const k = "sections.servicesTitle";
+      const val = t(k);
+      // Fallback si no tienes la key en i18n:
+      return val === k ? (lang === "es" ? "Soluciones digitales" : "Digital solutions") : val;
+    })()}
+  </h2>
+
+  {/* Descripción: oculta en mobile, visible ≥ sm */}
+  <p className="hidden sm:block text-center text-white/75 mb-6 sm:mb-8">
+    {lang === "es"
+      ? "Creamos experiencias digitales a medida: videojuegos, sitios web y aplicaciones."
+      : "We craft custom digital experiences: games, websites, and apps."}
+  </p>
+</div>
 
       {/* ─────────────────────────────────────────────────────
           [CARRUSEL EN DOS COLUMNAS]
@@ -151,38 +158,29 @@ const next = () => scrollToIndex((index + 1) % slides.length);
                     </div>
 
                     {/* Descripción */}
-                    <p className="text-white/80 text-sm sm:text-base leading-relaxed mb-4">
-                      {t(s.descKey)}
-                    </p>
+<p className="text-white/80 text-sm sm:text-base leading-relaxed mb-6 sm:mb-7">
+  {t(s.descKey)}
+</p>
 
-                    {/* Bullets */}
-                    <ul className="space-y-2 text-sm sm:text-base text-white/75 mb-6">
-                      {s.bullets.map((k) => (
-                        <li key={k} className="flex gap-2">
-                          <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-white/40" />
-                          <span>{t(k)}</span>
-                        </li>
-                      ))}
-                    </ul>
 
-                    {/* CTA centrado (solo texto “Solicitar cotización”, sin flecha) */}
-                    <div className="mt-2 flex justify-center">
-                      <a
-                        href="#contact"
-                        className="relative inline-flex items-center justify-center
-                                   px-5 py-2.5 rounded-xl
-                                   font-semibold uppercase tracking-wide text-black
-                                   bg-gradient-to-b from-[#e6c14b] to-[#d4af37]
-                                   shadow-[0_8px_24px_rgba(212,175,55,0.25)]
-                                   hover:shadow-[0_12px_32px_rgba(212,175,55,0.35)]
-                                   transition-transform duration-200 will-change-transform
-                                   hover:scale-[1.03] active:scale-[0.98] focus:outline-none
-                                   focus-visible:ring-2 focus-visible:ring-[#d4af37]/60"
-                        aria-label="Solicitar cotización"
-                      >
-                        Solicitar cotización
-                      </a>
-                    </div>
+{/* CTA centrado */}
+<div className="mt-0 flex justify-center">
+  <a
+    href="#contact"
+    className="relative inline-flex items-center justify-center
+               px-5 py-2.5 rounded-xl
+               font-semibold uppercase tracking-wide text-black
+               bg-gradient-to-b from-[#e6c14b] to-[#d4af37]
+               shadow-[0_8px_24px_rgba(212,175,55,0.25)]
+               hover:shadow-[0_12px_32px_rgba(212,175,55,0.35)]
+               transition-transform duration-200 will-change-transform
+               hover:scale-[1.03] active:scale-[0.98] focus:outline-none
+               focus-visible:ring-2 focus-visible:ring-[#d4af37]/60"
+    aria-label={t("cta.quote")}
+  >
+    {t("cta.quote")}
+  </a>
+</div>
                   </div>
 
                   {/* Columna derecha: imagen */}

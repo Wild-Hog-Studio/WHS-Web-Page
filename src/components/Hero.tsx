@@ -36,8 +36,8 @@ export default function Hero() {
     <section
       className="
         relative w-full
-        h-[32vh]           /* MOBILE como antes */
-        md:h-[29.77vh]     /* DESKTOP como el último (−10%) */
+        h-[20vh]          /* ↓ antes 32vh (mobile más bajo) */
+        md:h-[26vh]       /* ↓ antes 29.77vh (desktop más bajo) */
         overflow-hidden bg-[#212529]
       "
     >
@@ -50,25 +50,25 @@ export default function Hero() {
       />
 
       {/* contenido centrado */}
-<div
-  className="
-    relative h-full
-    grid place-items-center        /* ⬅️ mobile: centra en ambos ejes */
-    md:flex md:items-center md:justify-center
-    mx-auto w-full max-w-[1440px]
-    px-4 sm:px-6 lg:px-8 text-center
-  "
->
-<img
-  src={src}
-  className="
-    block                           /* ⬅️ evita el pequeño desajuste vertical */
-    w-[72%] sm:w-[63%] md:w-[37.8%]
-    max-w-md sm:max-w-lg md:max-w-[22.05rem]
-    object-contain
-  "
-  alt={lang === "es" ? "Eslogan en español" : "Slogan in English"}
-/>
+      <div
+        className="
+          relative h-full
+          grid place-items-center
+          md:flex md:items-center md:justify-center
+          mx-auto w-full max-w-[1440px]
+          px-4 sm:px-6 lg:px-8 text-center
+        "
+      >
+        <img
+          src={src}
+          className="
+            block
+            w-[72%] sm:w-[63%] md:w-[37.8%]
+            max-w-md sm:max-w-lg md:max-w-[22.05rem]
+            object-contain
+          "
+          alt={lang === "es" ? "Eslogan en español" : "Slogan in English"}
+        />
       </div>
     </section>
   );

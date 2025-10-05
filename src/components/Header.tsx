@@ -1,13 +1,16 @@
+// components/Header.tsx
 import { useEffect, useState } from "react";
 import "../styles/global.css";
 import FlagLogo from "./FlagLogo";
 import TargetLangToggle from "./TargetLangToggle";
 import { useI18nLite } from "../i18n-lite";
 
+const MOBILE_BAR_H = 50; // altura del topbar mobile (debe coincidir con el style del topbar)
+
 export default function Header() {
-  const [logoH, setLogoH] = useState(56);
+  const [logoH, setLogoH] = useState(56);                 // alto del logo (desktop)
   const [frame, setFrame] = useState({ left: 0, width: 1180 });
-  const [open, setOpen] = useState(false); // menú mobile
+  const [open, setOpen] = useState(false);                // menú mobile
 
   const { t } = useI18nLite();
   const label = (key: string, fallback: string) => {
@@ -15,10 +18,11 @@ export default function Header() {
     return v === key ? fallback : v;
   };
 
-  const FLAG_WIDTH = 260;
-  const FLAG_GUTTER = 20;
+  const FLAG_WIDTH = 260;   // ancho bandera/logo (desktop)
+  const FLAG_GUTTER = 20;   // separación entre bandera y menú
   const FLAG_SLOT = FLAG_WIDTH + FLAG_GUTTER;
 
+  // Mide la columna central para respetar rieles
   useEffect(() => {
     const computeFrame = () => {
       const el = document.querySelector("[data-frame]") as HTMLElement | null;
@@ -46,7 +50,10 @@ export default function Header() {
       {/* HEADER FIJO */}
       <div className="fixed inset-x-0 top-0 z-[80]">
         {/* ───────── MOBILE TOPBAR (<= lg) ───────── */}
-        <div className="lg:hidden h-14 bg-[#0e1114] border-b border-white/10">
+        <div
+          className="lg:hidden bg-[#0e1114] border-b border-white/10"
+          style={{ height: MOBILE_BAR_H }}  // asegura 50px
+        >
           <div className="h-full grid grid-cols-[auto_1fr_auto] items-center px-3 gap-2">
             {/* Hamburguesa */}
             <button
@@ -81,10 +88,7 @@ export default function Header() {
         <div className="hidden lg:block" style={{ height: logoH }}>
           <div className="relative h-full">
             {/* Fondo gris SOLO en la columna */}
-            <div
-              className="absolute inset-0 flex justify-center pointer-events-none z-0"
-              aria-hidden
-            >
+            <div className="absolute inset-0 flex justify-center pointer-events-none z-0" aria-hidden>
               <div
                 style={{
                   width: frame.width,
@@ -132,11 +136,12 @@ export default function Header() {
           frameSelector="[data-frame]"
           fallbackMaxW={1180}
           onHeightChange={setLogoH}
-          zIndex={120}
+          zIndex={120}   // por encima del header
         />
       </div>
 
-      {/* spacer (solo desktop) */}
+      {/* Spacer para que el contenido NO quede debajo del header */}
+      <div className="lg:hidden" style={{ height: MOBILE_BAR_H }} />
       <div className="hidden lg:block" style={{ height: logoH }} />
 
       {/* ───────── MOBILE DRAWER ───────── */}
@@ -147,6 +152,7 @@ export default function Header() {
             className="fixed inset-0 z-[95] bg-black/60"
             onClick={() => setOpen(false)}
           />
+
           {/* panel */}
           <div className="fixed top-0 left-0 bottom-0 z-[96] w-[78%] max-w-[320px] bg-[#0e1114] border-r border-white/10 p-4">
             <div className="flex items-center justify-between mb-4">

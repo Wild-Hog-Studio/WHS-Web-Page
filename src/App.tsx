@@ -12,17 +12,18 @@ export default function Main() {
 <I18nLiteProvider>
   <BrowserRouter>
     <Header /> {/* ⬅️ único */}
-    <div className="bg-black"> {/* ⬅️ gris fuera de rieles */}
-      <div
-        data-frame
-        className="
-          mx-auto min-h-screen
-          max-w-[1440px]
-          bg-[#121418]   {/* ⬅️ negro en rieles */}
-          px-4 sm:px-6 lg:px-8
-          shadow-[0_0_0_1px_rgba(255,255,255,0.06)]
-        "
-      >
+<div className="bg-black">
+  {/* negro en rieles */}
+  <div
+    data-frame
+    className="
+      mx-auto min-h-screen
+      max-w-[1440px]
+      bg-[#121418]
+      px-4 sm:px-6 lg:px-8
+      shadow-[0_0_0_1px_rgba(255,255,255,0.06)]
+    "
+  >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/TCG/league" element={<TCG />} />
